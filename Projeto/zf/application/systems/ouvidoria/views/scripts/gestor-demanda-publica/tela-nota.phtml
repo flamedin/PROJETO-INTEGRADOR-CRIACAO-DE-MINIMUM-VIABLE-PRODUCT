@@ -1,0 +1,68 @@
+<?php
+// Seta o tí­tulo
+$this->headTitle("Notas");
+?>
+
+<form id="form_popup_nota" method="post" accept-charset="ISO-8859-1" onsubmit="return false;" action="" enctype="multipart/form-data">
+
+    <?php echo $this->formHidden("seq_chamado", $this->form["seq_chamado"], array("class" => "int")); ?>
+    <?php echo $this->formHidden("ano_chamado", $this->form["ano_chamado"], array("class" => "int")); ?>
+
+    <div class="linha">
+        <div class="full">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <?php echo $this->formButton("btnVoltar", "Voltar", array("style" => "width:100px;height:30px;")); ?>
+        </div>
+    </div>
+
+    <fieldset>
+
+        <div>
+            <?php
+                if (count($this->notas) > 0) {
+                    $incrementador = 1;
+                    foreach ($this->notas as $nota) {
+            ?>
+
+                <div class="linha">
+                    <div class="left">
+                        <label class="label_esquerda" for="dthr_ins_<?php $incrementador ?>">Data/Hora Registro:</label>
+                        <?php echo $this->formText("dthr_ins_" . $incrementador, $nota['dthr_ins'], array("class" => "stru", "disabled"=>"disabled")); ?>
+                    </div>
+
+                    <div class="right">
+                        <label class="label_esquerda" for="cd_relator_<?php $incrementador ?>">Adicionado Por:</label>
+                        <?php echo $this->formText("cd_relator_" . $incrementador, $nota['cd_relator'], array("class" => "stru", "disabled"=>"disabled")); ?>
+                    </div>
+                </div>
+
+                <div class="linha">
+                    <div class="full">
+                        <label class="label_esquerda" for="relato_<?php $incrementador ?>">Nota:</label>
+                        <?php echo $this->formTextarea("relato_" .  $incrementador, $nota['relato'], array('class' => 'stru', 'maxlength' => '300', "disabled"=>"disabled")); ?>
+                    </div>
+                </div>
+
+                <?php }
+                $incrementador++;
+                    }?>
+            </div>
+
+        <div class="linha">
+            <div class="full">
+                <label class="label_esquerda" for="relato">Nova Nota:</label>
+                <?php echo $this->formTextarea("relato", null, array('class' => 'stru', 'maxlength' => '300')); ?>
+            </div>
+        </div>
+
+        <div class="linha">
+            <div class="full trio_para_imagem">
+                <div>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <?php echo $this->formButton("btnSalvarNota", "Salvar Nota", array("type"=>"submit","style"=>"width:150;height:30px;"));?>
+                </div>
+            </div>
+        </div>
+
+    </fieldset>
+</form>

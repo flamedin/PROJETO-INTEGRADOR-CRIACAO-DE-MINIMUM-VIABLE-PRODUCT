@@ -1,0 +1,75 @@
+<?php
+// Seta o título
+$this->headTitle("Gestor de Demandas Públicas - Selecionar");
+?>
+
+<!-- Formulario de cadastro -->
+<form id="form_base" method="post" accept-charset="ISO-8859-1" onsubmit="return false;" action="" enctype="multipart/form-data">
+
+    <fieldset>
+        <legend>Editar</legend>
+
+        <?php echo $this->formHidden("seq_chamado", $this->form['seq_chamado']); ?>
+        <?php echo $this->formHidden("ano_chamado", $this->form['ano_chamado']); ?>
+
+        <div class="linha">
+            <div class="left">
+                <label class="label_esquerda" for="protocolo">Protocolo:</label>
+                <?php echo $this->formText("protocolo", $this->form['protocolo'], array("class" => "stru", "disabled"=>"disabled")); ?>
+            </div>
+        </div>
+
+        <div class="linha">
+            <div class="left">
+                <label class="label_esquerda" for="dthr_ins">Data/Hora Registro:</label>
+                <?php echo $this->formText("dthr_ins", $this->form['dthr_ins'], array("class" => "stru", "disabled"=>"disabled")); ?>
+            </div>
+
+            <div class="right">
+                <label class="label_esquerda" for="cd_relator">Ouvidor:</label>
+                <?php echo $this->formText("cd_relator", $this->form['cd_relator'], array("class" => "stru", "disabled"=>"disabled")); ?>
+            </div>
+        </div>
+
+        <div class="linha">
+            <div class="left">
+                <label class="label_esquerda" for="">Título do Relato:</label>
+                <?php echo $this->formText("titulo_relato", $this->form['titulo_relato'], array('class' => 'stru', 'maxlength' => '100')); ?>
+            </div>
+
+            <div class="right">
+                <label class="label_direita" for="cd_natureza_relato">Natureza:</label>
+                <?php echo $this->formSelect("cd_natureza_relato", $this->form['cd_natureza_relato'], array("class" => "stru", "disabled"=>"disabled"), $this->adicionaValorPadraoCombo($this->ddwNatureza)); ?>
+            </div>
+        </div>
+
+        <div class="linha">
+            <div class="full">
+                <label class="label_esquerda" for="relato_solicitante">Relato:</label>
+                <?php echo $this->formTextarea("relato_solicitante", $this->form['relato_solicitante'], array('class' => 'stru', 'maxlength' => '300', "disabled"=>"disabled")); ?>
+            </div>
+        </div>
+
+        <div class="linha">
+            <div class="left">
+                <label class="label_direita" for="cd_status_relato">Status:</label>
+                <?php echo $this->formSelect("cd_status_relato", $this->form["cd_status_relato"], array("class" => "stru"), $this->adicionaValorPadraoCombo($this->ddwStatus)); ?>
+            </div>
+        </div>
+
+        <div class="trio_para_imagem">
+            <div class="linha">
+                <div class="left">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <?php echo $this->formButton("btnEnviar", "Anexos", array("style"=>"width:300px;height:30px;"));?>
+                </div>
+
+                <div class="right">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <?php echo $this->formButton("btnAbrirNotas", "Notas", array("style"=>"width:300px;height:30px;"));?>
+                </div>
+            </div>
+        </div>
+
+    </fieldset>
+</form>

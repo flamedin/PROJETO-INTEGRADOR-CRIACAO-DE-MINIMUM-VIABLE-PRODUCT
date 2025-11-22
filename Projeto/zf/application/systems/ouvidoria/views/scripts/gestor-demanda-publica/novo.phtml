@@ -1,0 +1,32 @@
+<?php
+// Seta o título
+$this->headTitle("Gestor de Demandas Públicas - Novo");
+?>
+
+<!-- Formulario de cadastro -->
+<form id="form_base" method="post" accept-charset="ISO-8859-1" onsubmit="return false;" action="">
+
+    <fieldset>
+        <legend>Novo</legend>
+
+        <div class="linha">
+            <div class="left">
+                <label class="label_esquerda" for="">Título do Relato:</label>
+                <?php echo $this->formText("titulo_relato", $this->form['titulo_relato'], array('class' => 'stru', 'maxlength' => '100')); ?>
+            </div>
+
+            <div class="right">
+                <label class="label_direita" for="cd_natureza_relato">Natureza:</label>
+                <?php echo $this->formSelect("cd_natureza_relato", null, array("class" => "stru required"), $this->adicionaValorPadraoCombo($this->ddwNatureza)); ?>
+            </div>
+        </div>
+
+        <div class="linha">
+            <div class="full">
+                <label class="label_esquerda" for="relato_solicitante">Relato:</label>
+                <?php echo $this->formTextarea("relato_solicitante", null, array('class' => 'stru', 'maxlength' => '300')); ?>
+            </div>
+        </div>
+
+    </fieldset>
+</form>

@@ -1,0 +1,15 @@
+.trio_para_imagem {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* position: absolute; */
+}
+
+#gerencia_imagens {
+    border-radius: 25px;
+    border: 2px solid #7f8cb6;
+    padding: flex;
+    width: flex;
+    height: flex;
+  }

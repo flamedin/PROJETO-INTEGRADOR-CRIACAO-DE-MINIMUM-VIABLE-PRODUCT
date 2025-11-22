@@ -1,0 +1,102 @@
+<?php
+// Seta o tí­tulo
+$this->headTitle("Anexar Arquivo");
+?>
+
+<form id="form_popup_arquivo" method="post" accept-charset="ISO-8859-1" onsubmit="return false;" action="" enctype="multipart/form-data">
+
+    <?php echo $this->formHidden("seq_chamado", $this->form["seq_chamado"], array("class" => "int")); ?>
+    <?php echo $this->formHidden("ano_chamado", $this->form["ano_chamado"], array("class" => "int")); ?>
+
+    <div class="linha">
+        <div class="full">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <?php echo $this->formButton("btnVoltar", "Voltar", array("style" => "width:100px;height:30px;")); ?>
+        </div>
+    </div>
+
+    <fieldset style="min-width:0px;">
+
+        <div class="wrapper">
+            <?php
+				if (count($this->arquivos) > 0) {
+					foreach ($this->arquivos as $arquivo) {
+                        // Separa a string do nome do arquivo, para exibir somente o nome que o usuário deu, sem as chaves
+                        $nome_de_exibicao =  explode("_", $arquivo['no_arquivo'], 4);
+                        $extensaoArquivo =  explode(".", $arquivo['local_arquivo']);
+			?>
+            <div style="display: flex; flex-direction: column; justify-content: center; align-items: center">
+                <div id="capsula1" style="display: flex; flex-direction: row; justify-content: center; align-items: center; padding: 5px">
+                    <div class="imagem_exibe" style="margin: 5px">
+
+                        <?php
+                            $nomeArquivo = ltrim($arquivo['no_arquivo'], '0');
+
+                            $localComNomeArquivo = "{$this->baseUrl()}/public/uploads/arquivos/{$nomeArquivo}.jpg";
+
+                            if (!file_exists($_SERVER['DOCUMENT_ROOT'] . $localComNomeArquivo)) {
+                                $localComNomeArquivo = "{$this->baseUrl()}/public/uploads/arquivos/{$nomeArquivo}.jpeg";
+
+                                    if (!file_exists($_SERVER['DOCUMENT_ROOT'] . $localComNomeArquivo)) {
+                                        $localComNomeArquivo = "{$this->baseUrl()}/public/uploads/arquivos/{$nomeArquivo}.png";
+
+                                        if (!file_exists($_SERVER['DOCUMENT_ROOT'] . $localComNomeArquivo)) {
+                                            $localComNomeArquivo = "{$this->baseUrl()}/public/uploads/arquivos/{$nomeArquivo}.bmp";
+
+                                            if (!file_exists($_SERVER['DOCUMENT_ROOT'] . $localComNomeArquivo)) {
+                                                $localComNomeArquivo = "{$this->baseUrl()}/public/uploads/arquivos/{$nomeArquivo}.pdf";
+
+                                                    if (!file_exists($_SERVER['DOCUMENT_ROOT'] . $localComNomeArquivo)) {
+                                                        $localComNomeArquivo = "{$this->baseUrl()}/public/uploads/arquivos/default.png";
+                                                    }
+                                            }
+                                        }
+                                    }
+                            }
+                        ?>
+                            <img width="125" height="125" border="0" alt="img" onclick="window.open(this.src, '_blank');" src="<?php echo $localComNomeArquivo; ?>" id="img_foto">
+                    </div>
+                    <div class="botao_exibe" style="align-items: start;"><img style="cursor: pointer;" class="btnExcluirArquivo" id="<?php echo 'excluir_'.$arquivo['no_arquivo'] ?>" alt="" src="<?php echo $arquivo['link'] ?>16x16_deletar.png" onclick="Interna.excluirCampo(this, '<?php echo $arquivo['no_arquivo']; ?>', '<?php echo $extensaoArquivo[1]; ?>');"></div>
+                </div>
+
+                <div class="nome_exibe" style="min-height: 20px;"><?php echo str_replace("_", " ", trim($nome_de_exibicao[3]));?></div>
+                <div class="descricao_exibe" style="min-height: 20px;"><?php echo $arquivo['descricao'];?></div>
+            </div>
+
+            <?php }
+                }?>
+        </div>
+
+        <style>
+            .wrapper {
+                display: grid;
+                grid-template-columns: 33.3% 33.3% 33.3%;
+            }
+        </style>
+
+    </fieldset>
+
+    <div>
+        <div id="texto_gerencia_imagens" class="trio_para_imagem" style="font-size: 16px"> Anexar Nova Imagem </div>
+        <div class="linha">
+            <div class="full">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label class="label_esquerda" for="no_arquivo">Título da Imagem:</label>
+                <?php echo $this->formText("no_arquivo", null, array('class' => 'stru', 'style'=>'width: 23% !important;', "maxlength"=>"50")); ?>
+                Descrição:
+                <?php echo $this->formText("descricao", null, array('class' => 'stru', 'style'=>'width: 53% !important;', "maxlength"=>"50")); ?>
+            </div>
+        </div>
+
+        <div class="linha">
+            <div class="full trio_para_imagem">
+                <div>
+                    <?php echo $this->formFile("local_arquivo", null, array("class" => "file ", "title"=>"local_arquivo", "alt"=>"local_arquivo"));?>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <?php echo $this->formButton("btnSalvarArquivo", "Salvar Arquivo", array("type"=>"submit","style"=>"width:150;height:30px;"));?>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</form>

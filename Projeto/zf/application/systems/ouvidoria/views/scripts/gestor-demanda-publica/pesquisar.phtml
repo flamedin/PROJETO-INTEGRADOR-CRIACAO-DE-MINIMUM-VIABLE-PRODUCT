@@ -1,0 +1,137 @@
+<?php
+// Seta o título
+$this->headTitle("Gestor de Demandas Públicas - Pesquisar");
+?>
+
+<!-- Formulario de cadastro -->
+<form id="form_pesquisar" method="post" accept-charset="ISO-8859-1" onsubmit="return false;" action="">
+
+    <fieldset>
+
+        <legend>Pesquisa</legend>
+
+        <div class="linha">
+            <div class="left">
+                <label class="label_direita" for="">Período:</label>
+                <label style="display: none" class="label_direita" for="dt_ini">Período Inicial:</label>
+                <?php echo $this->formText("dt_ini", $this->form['dt_ini'], array('class' => 'data', 'style' => 'width: 50px;')); ?>
+                &nbsp;à&nbsp;
+                <label style="display: none" class="label_direita" for="dt_fim">Período Final:</label>
+                <?php echo $this->formText("dt_fim", $this->form['dt_fim'], array('class' => 'data', 'style' => 'width: 50px;')); ?>
+            </div>
+
+            <div class="right">
+                <label class="label_esquerda" for="">Protocolo:</label>
+                <?php echo $this->formText("cd_protocolo", $this->form['cd_protocolo'], array('class' => 'numero', 'maxlength' => '8')); ?>
+            </div>
+        </div>
+
+        <div class="linha">
+            <div class="left">
+                <label class="label_direita" for="cd_natureza_relato">Natureza:</label>
+                <?php echo $this->formSelect("cd_natureza_relato", $this->form['cd_natureza_relato'], array("class" => "stru"), $this->adicionaValorPadraoCombo($this->ddwNatureza)); ?>
+            </div>
+
+            <div class="right">
+                <label class="label_direita" for="cd_status_relato">Status:</label>
+                <?php echo $this->formSelect("cd_status_relato", $this->form['cd_status_relato'], array("class" => "stru"), $this->adicionaValorPadraoCombo($this->ddwStatus)); ?>
+            </div>
+        </div>
+
+    </fieldset>
+</form>
+
+<table class="tabela" id="tabelaConsulta">
+    <?php
+    // Se a consulta foi feita mostra os dados
+    if (count($this->paginator)) {
+    ?>
+        <thead>
+            <tr>
+                <th style="text-align:center; width:16%;" column="PROTOCOLO">
+                    Protocolo<div class="img_seta"></div>
+                </th>
+                <th style="text-align:center; width:16%;" column="DTHR_INS">
+                    Data/Hora Registro<div class="img_seta"></div>
+                </th>
+                <th style="text-align:center; width:16%;" column="CD_NATUREZA_RELATO">
+                    Natureza<div class="img_seta"></div>
+                </th>
+                <th style="text-align:center; width:16%;" column="CD_STATUS_RELATO">
+                    Status<div class="img_seta"></div>
+                </th>
+            </tr>
+        </thead>
+
+        <tfoot>
+            <tr>
+                <td colspan="7">
+                    <?php echo $this->paginationControl($this->paginator, "Sliding", "controle_paginacao.phtml", array("extraParams" => $this->extraParams)); ?>
+                </td>
+            </tr>
+        </tfoot>
+
+        <tbody>
+            <?php
+
+            foreach ($this->paginator as $indice => $linha) {
+
+                // Faz a condição para cada CD_NATUREZA_RELATO que um registro possa ter
+                switch ($linha->CD_NATUREZA_RELATO) {
+                    case "1":
+                        $natureza_relato = "REPARO EM VIAS PÚBLICAS";
+                        break;
+                    case "2":
+                        $natureza_relato = "REPARO EM ILUMUNAÇÃO PÚBLICA";
+                        break;
+                    case "3":
+                        $natureza_relato = "REPARO EM PRÓPRIOS PÚBLICOS";
+                        break;
+                    case "4":
+                        $natureza_relato = "REPAROS CAUSADOS POR OBRAS";
+                        break;
+                    case "5":
+                        $natureza_relato = "OUTROS";
+                        break;
+                }
+
+                // Faz a condição para cada CD_NATUREZA_RELATO que um registro possa ter
+                switch ($linha->CD_STATUS_RELATO) {
+                    case "1":
+                        $status_relato = "RECEBIDO";
+                        break;
+                    case "2":
+                        $status_relato = "EM ANÁLISE";
+                        break;
+                    case "3":
+                        $status_relato = "CONCLUÍDO";
+                        break;
+                }
+
+                $key = "seq_chamado/{$linha->SEQ_CHAMADO}/ano_chamado/{$linha->ANO_CHAMADO}";
+            ?>
+                <tr class="linha <?php echo $class; ?>" key="<?php echo $key; ?>">
+                    <td style="text-align:center; "><?php echo "{$linha->PROTOCOLO}"; ?></td>
+                    <td style="text-align:center; "><?php echo $linha->DTHR_INS; ?></td>
+                    <td style="text-align:left; "><?php echo $natureza_relato; ?></td>
+                    <td style="text-align:left; "><?php echo $status_relato; ?></td>
+                </tr>
+            <?php
+            }
+            ?>
+        </tbody>
+
+    <?php
+    } else {
+    ?>
+        <tfoot>
+            <tr>
+                <td colspan="10" class="paginacaoLinhaTabela" style="padding: 5px;">
+                    Nenhum registo encontrado.
+                </td>
+            </tr>
+        </tfoot>
+    <?php
+    }
+    ?>
+</table>

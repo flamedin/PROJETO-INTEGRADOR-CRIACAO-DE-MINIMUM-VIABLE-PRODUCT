@@ -1,0 +1,41 @@
+<?php
+// Seta o título
+$this->headTitle("Gestor de Demandas Públicas  - Index");
+?>
+
+<!-- Formulario de cadastro -->
+<form id="form_pesquisar" method="post" accept-charset="ISO-8859-1" onsubmit="return false;" action="">
+
+    <fieldset>
+        <legend>Pesquisa</legend>
+
+        <div class="linha">
+            <div class="left">
+                <label class="label_direita" for="">Período:</label>
+                <label style="display: none" class="label_direita" for="dt_ini">Período Inicial:</label>
+                <?php echo $this->formText("dt_ini", $this->form['dt_ini'], array('class' => 'data', 'style' => 'width: 50px;')); ?>
+                &nbsp;à&nbsp;
+                <label style="display: none" class="label_direita" for="dt_fim">Período Final:</label>
+                <?php echo $this->formText("dt_fim", $this->form['dt_fim'], array('class' => 'data', 'style' => 'width: 50px;')); ?>
+            </div>
+
+            <div class="right">
+                <label class="label_esquerda" for="">Protocolo:</label>
+                <?php echo $this->formText("cd_protocolo", null, array('class' => 'numero', 'maxlength' => '8')); ?>
+            </div>
+        </div>
+
+        <div class="linha">
+            <div class="left">
+                <label class="label_direita" for="cd_natureza_relato">Natureza:</label>
+                <?php echo $this->formSelect("cd_natureza_relato", null, array("class" => "stru"), $this->adicionaValorPadraoCombo($this->ddwNatureza)); ?>
+            </div>
+
+            <div class="right">
+                <label class="label_direita" for="cd_status_relato">Status:</label>
+                <?php echo $this->formSelect("cd_status_relato", null, array("class" => "stru"), $this->adicionaValorPadraoCombo($this->ddwStatus)); ?>
+            </div>
+        </div>
+
+    </fieldset>
+</form>
