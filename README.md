@@ -16,7 +16,7 @@
 * REBECA DE VASCONCELOS CARICIO
 * RUAN CARLOS BATISTA DE SOUZA ARAUJO
 
-### ✅ Tecnologias utulizadas
+### ✅ Tecnologias utilizadas
 
 ## Back end
 Framework: Zend Framework
@@ -29,5 +29,5 @@ Framework: Bootstrap
 ## Banco
 SQL Oracle
 
-Vídeo demonstrativo da aplicação
+### ✅ Vídeo demonstrativo da aplicação
 https://youtu.be/dOtyFlA451Q
