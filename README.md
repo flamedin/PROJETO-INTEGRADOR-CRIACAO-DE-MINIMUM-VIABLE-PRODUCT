@@ -30,4 +30,4 @@ Framework: Bootstrap
 SQL Oracle
 
 Vídeo demonstrativo da aplicação
-![Assista no YouTube](https://www.youtube.com/watch?v=dOtyFlA451Q)
+![Assista no YouTube]([https://www.youtube.com/watch?v=dOtyFlA451Q](https://youtu.be/dOtyFlA451Q))
